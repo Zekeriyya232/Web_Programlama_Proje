@@ -6,9 +6,9 @@ namespace WebProje1.Entity
     {
         public DatabaseContex(DbContextOptions options) : base(options)
         {
-
         }
         public DbSet<KullaniciDB> Kullanici { get; set; }
+
     }
 
 }

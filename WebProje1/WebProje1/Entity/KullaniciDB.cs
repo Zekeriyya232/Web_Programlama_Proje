@@ -16,14 +16,20 @@ namespace WebProje1.Entity
         public string KullaniciSoyadi { get; set; }
         
         [Required]
-        public DateTime? kullaniciDogum { get; set; }
+        [DataType(DataType.Date)]
+        [Column(TypeName ="Date")]
+        public DateTime kullaniciDogum { get; set; }
 
         [Required,StringLength (50)]
         public string kullaniciEmail{ get; set; }
         [Required,StringLength(100)]
         public string kullaniciSifre { get; set; }
         public bool Locked { get; set; }=false;
-        public DateTime KayitTarih { get; set; }= DateTime.Now;
+        public DateTime KayitTarih { get; set; }= DateTime.UtcNow;
+
+        [Required]
+        [StringLength(50)]
+        public string Role { get; set; } = "user";
     }
 
 

@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using WebProje1.Entity;
@@ -11,9 +12,10 @@ using WebProje1.Entity;
 namespace WebProje1.Migrations
 {
     [DbContext(typeof(DatabaseContex))]
-    partial class DatabaseContexModelSnapshot : ModelSnapshot
+    [Migration("20221223190451_User_Update")]
+    partial class User_Update
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,8 +53,9 @@ namespace WebProje1.Migrations
                         .HasMaxLength(30)
                         .HasColumnType("character varying(30)");
 
-                    b.Property<DateTime>("kullaniciDogum")
-                        .HasColumnType("Date");
+                    b.Property<DateTime?>("kullaniciDogum")
+                        .IsRequired()
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("kullaniciEmail")
                         .IsRequired()
@@ -66,7 +69,7 @@ namespace WebProje1.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Kullanici", (string)null);
+                    b.ToTable("Kullanici");
                 });
 #pragma warning restore 612, 618
         }

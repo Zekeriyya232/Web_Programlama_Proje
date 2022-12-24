@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Reflection.Metadata.Ecma335;
 
 namespace WebProje1.Models
@@ -16,7 +17,9 @@ namespace WebProje1.Models
         public string Phone { get; set; }
 
         [Required(ErrorMessage = "Doğum Gününüzü Giriniz")]
-        public DateTime? kullaniciDogum { get; set; }
+        [DataType(DataType.Date)]
+        [Column(TypeName ="Date")]
+        public DateTime kullaniciDogum { get; set; }
 
 
         [Required(ErrorMessage = "Email Adresinizi Giriniz")]
