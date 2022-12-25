@@ -48,10 +48,10 @@ namespace WebProje1.Controllers
                         return View(loginVM);
                     }
                     List<Claim> claims = new List<Claim>();
-                    claims.Add(new Claim("ID", Kullanici.Id.ToString()));
-                    claims.Add(new Claim("KullaniciAdi", Kullanici.kullaniciAdi ?? string.Empty));
-                    claims.Add(new Claim("Role", Kullanici.Role));
-                    claims.Add(new Claim("KullaniciEposta",Kullanici.kullaniciEmail ?? string.Empty));
+                    claims.Add(new Claim(ClaimTypes.NameIdentifier, Kullanici.Id.ToString()));
+                    claims.Add(new Claim("kullaniciAdi", Kullanici.kullaniciAdi));
+                    claims.Add(new Claim(ClaimTypes.Role, Kullanici.Role));
+                    claims.Add(new Claim(ClaimTypes.Email,Kullanici.kullaniciEmail ?? string.Empty));
 
                     ClaimsIdentity identity = new ClaimsIdentity(claims,CookieAuthenticationDefaults.AuthenticationScheme);
                     ClaimsPrincipal principal = new ClaimsPrincipal(identity);

@@ -542,3 +542,5 @@ D:\VStudio\WebProje1\WebProje1\bin\Debug\net6.0\refs\Microsoft.Extensions.Loggin
 D:\VStudio\WebProje1\WebProje1\bin\Debug\net6.0\refs\Microsoft.Extensions.Options.dll
 D:\VStudio\WebProje1\WebProje1\bin\Debug\net6.0\refs\Microsoft.Extensions.Primitives.dll
 D:\VStudio\WebProje1\WebProje1\bin\Debug\net6.0\NETCore.Encrypt.dll
+D:\VStudio\WebProje1\WebProje1\bin\Debug\net6.0\AutoMapper.dll
+D:\VStudio\WebProje1\WebProje1\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll

@@ -57,6 +57,10 @@
                                 </svg>
                                 @User.FindFirst("KullaniciAdi").Value.ToUpper()
                             </a>
+
+                            <a asp-area="" asp-controller="Account" asp-action="Logout">
+                                <i class="fa-solid fa-right-from-bracket me-2"></i>Logout
+                            </a>
                         </div>
                     }
                     else{
