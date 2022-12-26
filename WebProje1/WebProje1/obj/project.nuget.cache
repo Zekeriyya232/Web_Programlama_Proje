@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "F4ePaZ+y2rb93UnsUYCj3gKqMt0mL3wqY7JibiNmdwPhptJHVXncehy64EuFwainq0dMWETHJREb3dt3HIZo4A==",
+  "dgSpecHash": "W7CEO9Odq8X9K1TrcpBux+jI//Q8oVqeMCZtzl72wQOJygE24Nt7DxWsIg7Le6nDIUevFIKbKyHv7Wcqb4KMQg==",
   "success": true,
   "projectFilePath": "D:\\VStudio\\WebProje1\\WebProje1\\WebProje1.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\zeko2\\.nuget\\packages\\automapper\\12.0.0\\automapper.12.0.0.nupkg.sha512",
     "C:\\Users\\zeko2\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.0\\automapper.extensions.microsoft.dependencyinjection.12.0.0.nupkg.sha512",
+    "C:\\Users\\zeko2\\.nuget\\packages\\font.awesome\\5.15.4\\font.awesome.5.15.4.nupkg.sha512",
     "C:\\Users\\zeko2\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\zeko2\\.nuget\\packages\\messagepack\\2.1.152\\messagepack.2.1.152.nupkg.sha512",
     "C:\\Users\\zeko2\\.nuget\\packages\\messagepack.annotations\\2.1.152\\messagepack.annotations.2.1.152.nupkg.sha512",

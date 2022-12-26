@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace WebProje1.Models
 {
-    public class CreateKullaniciVM
+    public class EditKullaniciVM
     {
         [Required(ErrorMessage = "İsminizi Giriniz")]
         public string kullaniciAdi { get; set; }
@@ -25,22 +25,14 @@ namespace WebProje1.Models
         [StringLength(50)]
         public string Role { get; set; } = "user";
 
-        public bool Locked { get; set; }
+        public bool Locked { get; set; } = false;
 
 
         [Required(ErrorMessage = "Email Adresinizi Giriniz")]
         [StringLength(30)]
         public string kullaniciEmail { get; set; }
 
-        [Required(ErrorMessage = "Şifrenizi Giriniz")]
-        [MinLength(6, ErrorMessage = "Şifre uzunluğu 6 karakterden uzun olmalı")]
-        [MaxLength(20, ErrorMessage = "Şifre uzunluğu 20 karakterden uzun olmamalı")]
-        public string KullaniciSifre { get; set; }
-
-        [Required(ErrorMessage = "Şifre Kontrol Giriniz")]
-        [Compare(nameof(KullaniciSifre), ErrorMessage = "Şifreyi kontrol edip tekrar giriniz ")]
-        public string KullaniciSifreKontrol { get; set; }
-
- 
+       
+        
     }
 }

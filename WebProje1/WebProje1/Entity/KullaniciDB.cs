@@ -20,6 +20,10 @@ namespace WebProje1.Entity
         [Column(TypeName ="Date")]
         public DateTime kullaniciDogum { get; set; }
 
+        [Required(ErrorMessage = "Telefon Numaranızı Giriniz")]
+        [Phone(ErrorMessage = "Lütfen telefon numarasını doğru giriniz")]
+        public string Phone { get; set; }
+
         [Required,StringLength (50)]
         public string kullaniciEmail{ get; set; }
         [Required,StringLength(100)]

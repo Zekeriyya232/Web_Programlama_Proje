@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using WebProje1.Models;
 
 namespace WebProje1.Entity
 {

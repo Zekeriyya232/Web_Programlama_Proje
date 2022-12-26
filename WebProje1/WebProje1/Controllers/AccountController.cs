@@ -39,6 +39,8 @@ namespace WebProje1.Controllers
                 string hashedPassword = cryptoPassword.MD5();
 
                 KullaniciDB Kullanici =_databaseContex.Kullanici.SingleOrDefault(x =>x.kullaniciEmail.ToLower()==loginVM.kullaniciEmail&&x.kullaniciSifre==hashedPassword);
+                
+                
 
                 if (Kullanici != null)
                 {
@@ -95,6 +97,7 @@ namespace WebProje1.Controllers
                     kullaniciSifre = hashedPassword,
                     kullaniciEmail = signUpVM.kullaniciEmail,
                     kullaniciDogum = signUpVM.kullaniciDogum,
+                    Phone = signUpVM.Phone
 
                 };
 
