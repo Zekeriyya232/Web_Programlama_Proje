@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using WebProje1.Models;
 
 namespace WebProje1.Entity
 {
@@ -6,9 +7,9 @@ namespace WebProje1.Entity
     {
         public DatabaseContex(DbContextOptions options) : base(options)
         {
-
         }
         public DbSet<KullaniciDB> Kullanici { get; set; }
+        public DbSet<MovieDB> Film { get; set; }
     }
 
 }

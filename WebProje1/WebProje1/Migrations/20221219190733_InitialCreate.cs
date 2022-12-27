@@ -21,7 +21,7 @@ namespace WebProje1.Migrations
                     kullaniciEmail = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
                     kullaniciSifre = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
                     Locked = table.Column<bool>(type: "boolean", nullable: false),
-                    KayitTarih = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    KayitTarih = table.Column<DateTime>(type: "date", nullable: false)
                 },
                 constraints: table =>
                 {

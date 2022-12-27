@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Razor.Compilation;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
@@ -9,6 +10,7 @@ using WebProje1.Entity;
 using WebProje1.Models;
 namespace WebProje1.Controllers
 {
+    [Authorize]
     public class AccountController : Controller
     {
         private readonly DatabaseContex _databaseContex;
@@ -20,10 +22,13 @@ namespace WebProje1.Controllers
             _configuration = configuration;
         }
 
+        [AllowAnonymous]
         public IActionResult Login()
         {
             return View();
         }
+
+        [AllowAnonymous]
         [HttpPost]
         public IActionResult Login(LoginVM loginVM)
         {
@@ -33,7 +38,9 @@ namespace WebProje1.Controllers
                 string cryptoPassword = loginVM.KullaniciSifre + md5Crypto;
                 string hashedPassword = cryptoPassword.MD5();
 
-                KullaniciDB Kullanici =_databaseContex.Kullanici.SingleOrDefault(x =>x.kullaniciEmail.ToLower()==loginVM.kullaniciEmail&&x.kullaniciSifre==loginVM.KullaniciSifre);
+                KullaniciDB Kullanici =_databaseContex.Kullanici.SingleOrDefault(x =>x.kullaniciEmail.ToLower()==loginVM.kullaniciEmail&&x.kullaniciSifre==hashedPassword);
+                
+                
 
                 if (Kullanici != null)
                 {
@@ -43,9 +50,10 @@ namespace WebProje1.Controllers
                         return View(loginVM);
                     }
                     List<Claim> claims = new List<Claim>();
-                    claims.Add(new Claim("ID", Kullanici.Id.ToString()));
-                    claims.Add(new Claim("KullaniciAdi", Kullanici.kullaniciAdi ?? string.Empty));
-                    claims.Add(new Claim("KullaniciEposta",Kullanici.kullaniciEmail ?? string.Empty));
+                    claims.Add(new Claim(ClaimTypes.NameIdentifier, Kullanici.Id.ToString()));
+                    claims.Add(new Claim("kullaniciAdi", Kullanici.kullaniciAdi));
+                    claims.Add(new Claim(ClaimTypes.Role, Kullanici.Role));
+                    claims.Add(new Claim(ClaimTypes.Email,Kullanici.kullaniciEmail ?? string.Empty));
 
                     ClaimsIdentity identity = new ClaimsIdentity(claims,CookieAuthenticationDefaults.AuthenticationScheme);
                     ClaimsPrincipal principal = new ClaimsPrincipal(identity);
@@ -64,11 +72,14 @@ namespace WebProje1.Controllers
             return View(loginVM);
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public IActionResult Kayit()
         {
             return View();
         }
+
+        [AllowAnonymous]
         [HttpPost]
         public IActionResult Kayit(signUpVM signUpVM)
         {
@@ -78,19 +89,21 @@ namespace WebProje1.Controllers
                 string cryptoPassword = signUpVM.KullaniciSifre + md5Crypto;
                 string hashedPassword = cryptoPassword.MD5();
 
-                KullaniciDB kullanici = new()
+                KullaniciDB kullanici = new KullaniciDB
                 {
 
                     kullaniciAdi = signUpVM.kullaniciAdi,
-                    KullaniciSoyadi=signUpVM.kullaniciSoyadi,
+                    KullaniciSoyadi = signUpVM.kullaniciSoyadi,
                     kullaniciSifre = hashedPassword,
-                    kullaniciEmail=signUpVM.kullaniciEmail,        
-                    kullaniciDogum=signUpVM.kullaniciDogum
+                    kullaniciEmail = signUpVM.kullaniciEmail,
+                    kullaniciDogum = signUpVM.kullaniciDogum,
+                    Phone = signUpVM.Phone
 
                 };
 
 
                 _databaseContex.Kullanici.Add(kullanici);
+                _databaseContex.SaveChanges();
                 return View("Login");
             }
             return View(signUpVM);
@@ -99,6 +112,12 @@ namespace WebProje1.Controllers
         public IActionResult Profile()
         {
             return View();
+        }
+
+        public IActionResult Logout()
+        {
+            HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction("Index","Home");
         }
     }
 }

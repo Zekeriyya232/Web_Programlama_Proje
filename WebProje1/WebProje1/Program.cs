@@ -5,8 +5,8 @@ using WebProje1.Entity;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
-//builder.Services.AddDbContext<>(options=>options.UseNpgsql())
+builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
+
 builder.Services.AddDbContext<DatabaseContex>(opts =>
 {
     opts.UseNpgsql(builder.Configuration.GetConnectionString("DbDefault"));
@@ -17,11 +17,11 @@ builder.Services
     .AddCookie(opts =>
     {
         opts.Cookie.Name = ".WebProje1.auth";
-        opts.ExpireTimeSpan = TimeSpan.FromDays(7);
+        opts.ExpireTimeSpan = TimeSpan.FromDays(7);    //tekrar bak
         opts.SlidingExpiration = false;
         opts.LoginPath = "/Account/Login";
         opts.LogoutPath = "/Account/Logout";
-        opts.AccessDeniedPath = "/Home/AccesDenied";
+        opts.AccessDeniedPath = "/Home/AccesDenied";     //buraya tekrar bak
     });
 
 var app = builder.Build();
@@ -39,6 +39,8 @@ app.UseStaticFiles();
 
 
 app.UseRouting();
+
+app.UseAuthentication();                     //
 
 app.UseAuthorization();
 

@@ -12,9 +12,9 @@ namespace WebProje1.Migrations
             migrationBuilder.AddColumn<DateTime>(
                 name: "kullaniciDogum",
                 table: "Kullanici",
-                type: "timestamp with time zone",
+                type: "date",
                 nullable: false,
-                defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
+                defaultValue: new DateTime(1, 1, 1));
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
