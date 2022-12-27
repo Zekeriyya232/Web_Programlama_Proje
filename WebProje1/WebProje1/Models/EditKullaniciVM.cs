@@ -30,6 +30,9 @@ namespace WebProje1.Models
 
         [Required(ErrorMessage = "Email Adresinizi Giriniz")]
         [StringLength(30)]
-        public string kullaniciEmail { get; set; }   
+        public string kullaniciEmail { get; set; }
+
+       
+        
     }
 }

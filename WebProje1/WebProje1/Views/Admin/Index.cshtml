@@ -52,7 +52,7 @@
 						<td class="text-end">
 							<a asp-action="EditKullanici" asp-route-id="@kullanici.Id" class="btn btn-info btn-sm text-white"><i class="fa fa-edit me-2"></i>Düzenle</a>
 							<a asp-action="DeleteKullanici" asp-route-id="@kullanici.Id"
-						   onclick="return confirm('Bu kullanıcıyı silmek istediğinize emin misiniz Kullanıcı=@kullanici.kullaniciAdi@kullanici.KullaniciSoyadi? ')"
+						   onclick="return confirm('Bu kullanıcıyı silmek istediğinize emin misiniz @kullanici.kullaniciAdi+@kullanici.KullaniciSoyadi? ')"
 						   class="btn btn-danger btn-sm text-white"><i class="fa fa-trash me-2"></i>Sil</a>
 
 						</td>

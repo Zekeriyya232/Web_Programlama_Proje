@@ -12,11 +12,14 @@ namespace WebProje1.Entity
 
         [Required, StringLength(30)]
         public string FilmAdi { get; set; }
+        [Required, StringLength(20)]
         public string Description { get; set; }
-        public string Director { get; set; }
+
         public int KategoriId { get; set; }
 
         public int FilmSure { get; set; }
-        public string ImageURL { get; set; } = "no_img.jpg";
+
+
+
     }
 }

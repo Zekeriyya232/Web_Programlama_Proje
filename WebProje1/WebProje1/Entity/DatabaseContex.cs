@@ -9,7 +9,7 @@ namespace WebProje1.Entity
         {
         }
         public DbSet<KullaniciDB> Kullanici { get; set; }
-        public DbSet<MovieDB> Film { get; set; }
+
     }
 
 }
