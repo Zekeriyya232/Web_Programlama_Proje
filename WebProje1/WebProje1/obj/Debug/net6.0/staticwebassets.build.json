@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "R/nUCZ11JSuLxd8l+9aTPRDry1Tp3Viw8sldZm5tjgo=",
+  "Hash": "wid853kZkVdLneEETu/LGiDJwJtymHvvDvaHlgxpNqQ=",
   "Source": "WebProje1",
   "BasePath": "_content/WebProje1",
   "Mode": "Default",
@@ -1817,6 +1817,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
+    },
+    {
+      "Identity": "D:\\VStudio\\WebProje1\\WebProje1\\wwwroot\\uploads\\no_img.png",
+      "SourceId": "WebProje1",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\VStudio\\WebProje1\\WebProje1\\wwwroot\\",
+      "BasePath": "_content/WebProje1",
+      "RelativePath": "uploads/no_img.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\no_img.png"
     }
   ]
 }

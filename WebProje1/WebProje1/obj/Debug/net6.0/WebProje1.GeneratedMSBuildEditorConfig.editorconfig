@@ -15,6 +15,10 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes = true
 build_property.MSBuildProjectDirectory = D:\VStudio\WebProje1\WebProje1
 build_property._RazorSourceGeneratorDebug = 
 
+[D:/VStudio/WebProje1/WebProje1/Views/Account/EditProfile.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxFZGl0UHJvZmlsZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/VStudio/WebProje1/WebProje1/Views/Account/Kayit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxLYXlpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 

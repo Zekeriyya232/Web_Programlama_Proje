@@ -23,9 +23,15 @@ namespace WebProje1.Models
 
         [Required]
         [StringLength(50)]
-        public string Role { get; set; } = "user";
+        public string Role { get; set; } 
 
         public bool Locked { get; set; } = false;
+
+        [Required, StringLength(100)]
+        public string kullaniciSifre { get; set; }
+
+        [StringLength(255)]
+        public string ProfilImg { get; set; } 
 
 
         [Required(ErrorMessage = "Email Adresinizi Giriniz")]

@@ -1,13 +1,18 @@
-﻿using Microsoft.AspNetCore.Authentication;
+﻿using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Razor.Compilation;
+using Microsoft.Build.Framework;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using NETCore.Encrypt.Extensions;
 using System.Security.Claims;
 using WebProje1.Entity;
 using WebProje1.Models;
+using RequiredAttribute = System.ComponentModel.DataAnnotations.RequiredAttribute;
+using Microsoft.AspNetCore.Identity;
+
 namespace WebProje1.Controllers
 {
     [Authorize]
@@ -38,9 +43,9 @@ namespace WebProje1.Controllers
                 string cryptoPassword = loginVM.KullaniciSifre + md5Crypto;
                 string hashedPassword = cryptoPassword.MD5();
 
-                KullaniciDB Kullanici =_databaseContex.Kullanici.SingleOrDefault(x =>x.kullaniciEmail.ToLower()==loginVM.kullaniciEmail&&x.kullaniciSifre==hashedPassword);
-                
-                
+                KullaniciDB Kullanici = _databaseContex.Kullanici.SingleOrDefault(x => x.kullaniciEmail.ToLower() == loginVM.kullaniciEmail && x.kullaniciSifre == hashedPassword);
+
+
 
                 if (Kullanici != null)
                 {
@@ -53,12 +58,12 @@ namespace WebProje1.Controllers
                     claims.Add(new Claim(ClaimTypes.NameIdentifier, Kullanici.Id.ToString()));
                     claims.Add(new Claim("kullaniciAdi", Kullanici.kullaniciAdi));
                     claims.Add(new Claim(ClaimTypes.Role, Kullanici.Role));
-                    claims.Add(new Claim(ClaimTypes.Email,Kullanici.kullaniciEmail ?? string.Empty));
+                    claims.Add(new Claim(ClaimTypes.Email, Kullanici.kullaniciEmail ));
 
-                    ClaimsIdentity identity = new ClaimsIdentity(claims,CookieAuthenticationDefaults.AuthenticationScheme);
+                    ClaimsIdentity identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                     ClaimsPrincipal principal = new ClaimsPrincipal(identity);
 
-                    HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,principal);
+                    HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
 
                     return RedirectToAction("Index", "Home");
                 }
@@ -67,7 +72,7 @@ namespace WebProje1.Controllers
                     ModelState.AddModelError("", "Kullanıcı adı ya da parola hatalı");
                 }
 
-               // return View("~/Views/Home/Index.cshtml");
+                // return View("~/Views/Home/Index.cshtml");
             }
             return View(loginVM);
         }
@@ -83,7 +88,8 @@ namespace WebProje1.Controllers
         [HttpPost]
         public IActionResult Kayit(signUpVM signUpVM)
         {
-            if (ModelState.IsValid) {
+            if (ModelState.IsValid)
+            {
 
                 string md5Crypto = _configuration.GetValue<string>("AppSettings:MD5Crypto");
                 string cryptoPassword = signUpVM.KullaniciSifre + md5Crypto;
@@ -111,13 +117,79 @@ namespace WebProje1.Controllers
 
         public IActionResult Profile()
         {
+            string id = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            int intId = Convert.ToInt32(id);
+
+            ViewBag.kullaniciId = intId;
+
+            KullaniciDB kullanici = _databaseContex.Kullanici.Find(intId);
+            ProfileVM kullaniciProfil= new ProfileVM();
+            kullaniciProfil.kullaniciAdi = kullanici.kullaniciAdi;
+            kullaniciProfil.kullaniciSoyadi = kullanici.KullaniciSoyadi;
+            kullaniciProfil.kullaniciEmail = kullanici.kullaniciEmail;
+            kullaniciProfil.kullaniciDogum = kullanici.kullaniciDogum;
+            kullaniciProfil.Phone = kullanici.Phone;
+            kullaniciProfil.ProfilImg = kullanici.ProfilImg;
+
+            return View(kullaniciProfil);
+        }
+
+
+        public IActionResult EditProfile(int Id)
+        {
+            KullaniciDB kullanici = _databaseContex.Kullanici.Find(Id);
+            EditKullaniciVM editKullanici = new EditKullaniciVM();
+            editKullanici.kullaniciAdi = kullanici.kullaniciAdi;
+            editKullanici.kullaniciSoyadi = kullanici.KullaniciSoyadi;
+            editKullanici.kullaniciEmail = kullanici.kullaniciEmail;
+            editKullanici.kullaniciDogum = kullanici.kullaniciDogum;
+            editKullanici.Locked = kullanici.Locked;
+            editKullanici.Phone = kullanici.Phone;
+            editKullanici.Role = kullanici.Role;
+            editKullanici.ProfilImg = kullanici.ProfilImg;
+
+
+            return View(editKullanici);
+        }
+
+        [HttpPost]
+        public IActionResult EditProfile(int Id, EditKullaniciVM model)
+        {
+            if (ModelState.IsValid)
+            {
+                KullaniciDB kullanici = _databaseContex.Kullanici.Find(Id);
+                kullanici.kullaniciAdi = model.kullaniciAdi;
+                kullanici.KullaniciSoyadi = model.kullaniciSoyadi;
+                kullanici.kullaniciEmail = model.kullaniciEmail;
+                kullanici.kullaniciDogum = model.kullaniciDogum;
+                kullanici.Locked = model.Locked;
+                kullanici.Phone = model.Phone;
+                kullanici.Role = model.Role;
+                kullanici.ProfilImg = model.ProfilImg;
+
+                _databaseContex.SaveChanges();
+
+                //admin sayfasında kullanıcıları listelemek için kullan 
+
+
+                return View("Profile", model);
+
+            }
+            return View(model);
+        }
+
+
+        [HttpPost]
+        public IActionResult EditProfileImg([Required]IFormFile file)
+        {
             return View();
         }
+
 
         public IActionResult Logout()
         {
             HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            return RedirectToAction("Index","Home");
+            return RedirectToAction("Index", "Home");
         }
     }
 }

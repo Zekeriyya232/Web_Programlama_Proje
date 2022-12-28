@@ -31,6 +31,9 @@ namespace WebProje1.Entity
         public bool Locked { get; set; }=false;
         public DateTime KayitTarih { get; set; }= DateTime.UtcNow;
 
+        [StringLength(255)]
+        public string ProfilImg { get; set; } = "no_img.jpg";
+
         [Required]
         [StringLength(50)]
         public string Role { get; set; } = "user";
