@@ -14,7 +14,7 @@ namespace WebProje1.Migrations
                 type: "character varying(255)",
                 maxLength: 255,
                 nullable: false,
-                defaultValue: "");
+                defaultValue: "no_image.jpg");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

@@ -182,7 +182,49 @@ namespace WebProje1.Controllers
         [HttpPost]
         public IActionResult EditProfileImg([Required]IFormFile file)
         {
-            return View();
+            if (ModelState.IsValid)
+            {
+                string id2 = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                int intId2 = Convert.ToInt32(id2);
+                KullaniciDB kullanici2 = _databaseContex.Kullanici.SingleOrDefault(x => x.Id == intId2);
+
+                string filename = $"p_{id2}.jpg";   //dosya adı isimlendirildi
+                Stream stream = new FileStream($"wwwroot/kullaniciImg/{filename}", FileMode.OpenOrCreate);
+
+                file.CopyTo(stream);
+
+                stream.Close();
+                stream.Dispose();
+
+                kullanici2.ProfilImg = filename;
+                _databaseContex.SaveChanges();
+
+                return RedirectToAction(nameof(Profile));
+
+            }
+            else {
+
+                string id = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                int intId = Convert.ToInt32(id);
+                KullaniciDB kullanici = _databaseContex.Kullanici.SingleOrDefault(x => x.Id == intId);
+
+                ProfileVM profileVM = new ProfileVM();
+                profileVM.kullaniciAdi = kullanici.kullaniciAdi;
+                profileVM.kullaniciSoyadi = kullanici.KullaniciSoyadi;
+                profileVM.kullaniciEmail=kullanici.kullaniciEmail;
+                profileVM.KayitTarih = kullanici.KayitTarih;
+                profileVM.ProfilImg=kullanici.ProfilImg; 
+                profileVM.kullaniciDogum=kullanici.kullaniciDogum;
+                profileVM.Phone=kullanici.Phone;
+                
+
+
+                return View("Profile", profileVM);
+
+
+            }
+
+           
         }
 
 

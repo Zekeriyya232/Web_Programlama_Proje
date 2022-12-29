@@ -10,12 +10,13 @@
 <div class="container rounded bg-white mt-5 mb-5">
 	<div class="row">
 		<div class="col-md-3 border-right">
-			<form asp-action="Profile">
+			<form method="post" asp-action="EditProfileImg" enctype="multipart/form-data">
 				<div class="d-flex flex-column align-items-center text-center p-2 py-2">
-					<img src="~/uploads/no_img.png" class="rounded-circle mt-3" width="150px">
+					<img src="~/kullaniciImg/@Model.ProfilImg" class="rounded-circle mt-3" width="120px">
 					<span class="font-weight-bold">@Model.kullaniciAdi</span>
 					<span class="text-black-50">@Model.kullaniciEmail</span>
-					<span><input type="file" /> </span><button class="btn btn-info btn-sm text-white">Kaydet</button>
+					<span><input asp-for="@Model.ProfilImg" name="file" type="file" accept=".jpg" /> </span>
+					<button class="btn btn-info btn-sm text-white" type="submit">Kaydet</button>
 					<span> </span>
 				</div>
 			</form>
