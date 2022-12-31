@@ -77,6 +77,46 @@ namespace WebProje1.Migrations
 
                     b.ToTable("Kullanici");
                 });
+
+            modelBuilder.Entity("WebProje1.Entity.MovieDB", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Aciklama")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("FilmAdi")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("character varying(30)");
+
+                    b.Property<string>("FilmImg")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("FilmSure")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("KategoriId")
+                        .HasColumnType("integer");
+
+                    b.Property<string[]>("Oyuncular")
+                        .IsRequired()
+                        .HasColumnType("text[]");
+
+                    b.Property<string>("Yonetmen")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Movie");
+                });
 #pragma warning restore 612, 618
         }
     }

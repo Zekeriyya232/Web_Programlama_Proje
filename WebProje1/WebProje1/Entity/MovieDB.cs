@@ -12,13 +12,15 @@ namespace WebProje1.Entity
 
         [Required, StringLength(30)]
         public string FilmAdi { get; set; }
-        [Required, StringLength(20)]
-        public string Description { get; set; }
+        
+        public string Aciklama { get; set; }
 
         public int KategoriId { get; set; }
 
         public int FilmSure { get; set; }
-
+        public string[] Oyuncular { get; set; }
+        public string Yonetmen { get; set; }
+        public string FilmImg { get; set; }
 
 
     }

@@ -1,52 +1,105 @@
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
 }
 
-.loginCard{
-    border-radius:10px;
+.loginCard {
+    border-radius: 10px;
 }
+
 .loginIcon {
-    background: linear-gradient(to right,#ba31e8, #d8363a, #dd3675, #b44593);
+   
 }
 
-.jumbotronCard{
+.jumbotronCard {
     border-top-left-radius: 10px;
-    border-top-right-radius:10px;
+    border-top-right-radius: 10px;
 }
 
-.topnav-centered{
+.topnav-centered {
     float: none;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width:400px;
+    width: 400px;
 }
-@media screen and (max-width: 600px) {
-    .topnav-centered a {
+
+#imgLabel {
+    border:5px solid gray;
+    border-radius:10px;
+    cursor: pointer;
+    /* Style as you please, it will become the visible UI component. */
+}
+
+#inputImg {
+    opacity: 0;
+    position: absolute;
+    z-index: -1;
+}
+
+
+/*
+    .inputfile {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+
+.inputfile + label {
+    font-size: 1.25em;
+    font-weight: 700;
+    color: white;
+    background-color: black;
+    display: inline-block;
+}
+.inputfile:focus + label,
+.inputfile + label:hover {
+    background-color: red;
+
+}
+.inputfile:focus + label {
+    outline: 1px dotted #000;
+    outline: -webkit-focus-ring-color auto 5px;
+}
+.inputfile + label {
+    cursor: pointer;
+}
+.inputfile + label * {
+    pointer-events: none;
+}
+
+*/
+
+
+
+    @media screen and (max-width: 600px) {
+        .topnav-centered a {
         position: relative;
         top: 0;
         left: 0;
         transform: none;
     }
 
-    .loginCard{
-        width:350px;
+    .loginCard {
+        width: 350px;
     }
 }
 

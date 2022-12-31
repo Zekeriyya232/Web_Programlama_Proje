@@ -1,0 +1,52 @@
+﻿@model List<MovieVM>
+@{
+	ViewData["Title"] = "Film Listesi";
+}
+<div class="row">
+	<div class="col">
+		<h1 class="display-4">@ViewData["Title"]</h1>
+		<hr />
+	</div>
+</div>
+
+<div class="row mb-3">
+	<div class="col">
+		<a asp-action="CreateMovie" class="btn btn-primary btn-sm"><i class="fa fa-plus me-2"></i>Yeni Film</a>
+
+		<div class="dropdown text-end">
+			<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				Dropdown button
+			</button>
+			<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+				<a class="dropdown-item" asp-action="GenreList" asp-route-id="1" >Action</a>
+				<a class="dropdown-item" asp-action="GenreList" asp-route-id="1">Another action</a>
+				<a class="dropdown-item" asp-action="GenreList" asp-route-id="1">Another action</a>
+				<a class="dropdown-item" asp-action="GenreList" asp-route-id="1">Something else here</a>
+			</div>
+		</div>
+
+	</div>
+</div>
+
+@foreach (MovieVM movie in Model)
+{
+	<div class="card mb-3">
+		<div class="row">
+			<div class="col-md-3">
+				<img src="~/FilmImg/@movie.FilmAdi" alt="@movie.FilmAdi" class="img-fluid" />
+			</div>
+			<div class="col-md-9">
+				<div class="card-body">
+					<h5 class="card-title">@movie.FilmAdi</h5>
+					<div>
+						<a class="btn btn-primary" asp-controller="Admin" asp-action="MovieDetails" asp-route-id="@movie.Id">Detaylar</a>
+						<a asp-action="EditMovie" asp-route-id="@movie.Id" class="btn btn-info btn-sm text-white"><i class="fa fa-edit me-2"></i>Düzenle</a>
+						<a asp-action="DeleteMovies" asp-route-id="@movie.Id"
+					   onclick="return confirm('Bu filmi silmek istediğinize emin misiniz ? Film:@movie.FilmAdi ')"
+					   class="btn btn-danger btn-sm text-white"><i class="fa fa-trash me-2"></i>Sil</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+}

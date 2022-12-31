@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "EabU/qivtVvrJSCAvYTccISbwgAccd7fdPe/Q5kqYpY=",
+  "Hash": "AqUFi9LdqgR3HX2CwKLMB9oXJOdWkJ33W+ruPa0bBCw=",
   "Source": "WebProje1",
   "BasePath": "_content/WebProje1",
   "Mode": "Default",
@@ -151,6 +151,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\kullaniciImg\\p_14.jpg"
+    },
+    {
+      "Identity": "D:\\VStudio\\WebProje1\\WebProje1\\wwwroot\\kullaniciImg\\p_15.jpg",
+      "SourceId": "WebProje1",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\VStudio\\WebProje1\\WebProje1\\wwwroot\\",
+      "BasePath": "_content/WebProje1",
+      "RelativePath": "kullaniciImg/p_15.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\kullaniciImg\\p_15.jpg"
     },
     {
       "Identity": "D:\\VStudio\\WebProje1\\WebProje1\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",

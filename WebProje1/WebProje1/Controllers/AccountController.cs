@@ -180,7 +180,7 @@ namespace WebProje1.Controllers
 
 
         [HttpPost]
-        public IActionResult EditProfileImg([Required]IFormFile file)
+        public IActionResult EditProfileImg([Required]IFormFile inputImg)
         {
             if (ModelState.IsValid)
             {
@@ -191,7 +191,7 @@ namespace WebProje1.Controllers
                 string filename = $"p_{id2}.jpg";   //dosya adı isimlendirildi
                 Stream stream = new FileStream($"wwwroot/kullaniciImg/{filename}", FileMode.OpenOrCreate);
 
-                file.CopyTo(stream);
+                inputImg.CopyTo(stream);
 
                 stream.Close();
                 stream.Dispose();

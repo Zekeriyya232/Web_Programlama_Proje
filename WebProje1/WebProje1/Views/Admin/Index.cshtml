@@ -2,7 +2,7 @@
 
 @{
 
-	ViewData["Title"]="Kullanıcılar";
+	ViewData["Title"] = "Kullanıcılar";
 }
 
 <div class="row">
@@ -33,16 +33,19 @@
 				</tr>
 			</thead>
 			<tbody>
-				@foreach(KullaniciVM kullanici in Model){
+				@foreach (KullaniciVM kullanici in Model)
+				{
 					<tr>
 						<td>@kullanici.Id</td>
 						<td>@kullanici.kullaniciAdi</td>
 						<td>@kullanici.KullaniciSoyadi</td>
 						<td>
-							@if(kullanici.Locked){
+							@if (kullanici.Locked)
+							{
 								<i class="fa fa-check text-success"></i>
 							}
-							else{
+							else
+							{
 								<i class="fa fa-times text-danger"></i>
 							}
 						</td>

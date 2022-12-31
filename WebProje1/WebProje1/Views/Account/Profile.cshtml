@@ -11,12 +11,18 @@
 	<div class="row">
 		<div class="col-md-3 border-right">
 			<form method="post" asp-action="EditProfileImg" enctype="multipart/form-data">
-				<div class="d-flex flex-column align-items-center text-center p-2 py-2">
-					<img src="~/kullaniciImg/@Model.ProfilImg" class="rounded-circle mt-3" width="120px">
+				<div class="d-flex flex-column align-items-center text-center p-2 py-2">					
+					
+					<img src="~/kullaniciImg/@Model.ProfilImg" class="img-thumbnail rounded-circle mt-3" width="120px"> 
+					
+														
 					<span class="font-weight-bold">@Model.kullaniciAdi</span>
 					<span class="text-black-50">@Model.kullaniciEmail</span>
-					<span><input asp-for="@Model.ProfilImg" name="file" type="file" accept=".jpg" /> </span>
-					<button class="btn btn-info btn-sm text-white" type="submit">Kaydet</button>
+					<label id="imgLabel" for="inputImg"><strong>Profil Fotoğrafı Seç  <i class="fa-regular fa-image"></i></strong></label>
+					<span>
+						<input asp-for="@Model.ProfilImg" name="inputImg" id="inputImg"  type="file" accept=".jpg" />						
+					</span>
+					<button class="btn btn-info btn-sm text-white mt-1" type="submit">Kaydet</button>
 					<span> </span>
 				</div>
 			</form>
@@ -91,4 +97,3 @@
 		</div>
 	</div>
 </div>
-
