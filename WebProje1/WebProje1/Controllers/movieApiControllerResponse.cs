@@ -37,23 +37,7 @@ namespace WebProje1.Controllers
         }
 
 
-        [HttpPut]
-        public async Task<MovieDB> Update(MovieDB movie)
-        {
-            movie=new MovieDB();
-            using (var httpclient = new HttpClient(clientHandler))
-            {
-                StringContent content = new StringContent(JsonConvert.SerializeObject(movie), Encoding.UTF8, "application/json");
-
-                using (var response = await httpclient.PutAsync("https://localhost:7082/api/MovieApi", content))
-                {
-                    string apiresponse = await response.Content.ReadAsStringAsync();
-                    movie = JsonConvert.DeserializeObject<MovieDB>(apiresponse);
-                }
-            }
-            return movie;
-        }
-
+  
 
 
 

@@ -20,8 +20,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\FilmImg\" />
-    <Folder Include="wwwroot\diziImg\" />
     <Folder Include="wwwroot\uploads\" />
   </ItemGroup>
 

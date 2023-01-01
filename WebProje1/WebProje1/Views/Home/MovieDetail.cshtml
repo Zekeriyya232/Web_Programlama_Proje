@@ -1,0 +1,82 @@
+﻿@model CommentVM
+<link href="~/css/detailpage.css" rel="stylesheet" />
+
+@{
+    ViewData["Title"] = "Film Detay";
+    KullaniciVM kullanici = ViewBag.kullanici;
+    List<CommentVM> comment = ViewBag.comments;
+    MovieVM movie = ViewBag.movies;
+    CommentVM comment1 = new CommentVM();
+
+}
+
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <h3 class="card-title">@movie.FilmAdi</h3>
+            <div class="row">
+                <div class="col-lg-5 col-md-5 col-sm-6">
+                    <div class="white-box text-center"><img src="/FilmImg/@movie.filmImg" class="img-responsive movieImg"></div>
+                </div>
+                <div class="col-lg-7 col-md-7 col-sm-6">
+                    <h4 class="box-title mt-5">Film Açıklama</h4>
+                    <p>@movie.Aciklama</p>
+
+                    <h3 class="box-title mt-5">Yapımcılar ve Oyuncular</h3>
+                    <p><b>Yönetmen : </b> @movie.Yonetmen  </p>
+                    <p>
+                        <b>Oyuncular :</b>
+                        @foreach (var item in movie.oyuncular)
+                        {
+                            <span>@item</span>
+                        }
+                    </p>
+                    <p><b>Film Süresi : </b>@movie.FilmSure</p>
+                    <p>
+                        <b>Kategori :</b>
+                        @if (movie.KategoriId == 1)
+                        {
+                            <span>Aksiyon</span>
+                        }
+                        else if (movie.KategoriId == 2)
+                        {
+                            <span>Drama</span>
+                        }
+                        else if (movie.KategoriId == 3)
+                        {
+                            <span>Bilim Kurgu</span>
+                        }
+                        else if (movie.KategoriId == 4)
+                        {
+                            <span>Komedi</span>
+                        }
+                    </p>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <h3 class="box-title mt-5">Yorumlar</h3>
+
+                    @if (User.Identity.IsAuthenticated){
+                    <form asp-action="AddComment">
+                        <input class="form-control" asp-for="comment" type="text" id="addANote" class="form-control" placeholder="Type comment..." />
+                        <input class="form-control" asp-for="kullaniciId" type="hidden" value="@kullanici.Id">
+                        <input class="form-control" asp-for="filmId" type="hidden" value="@movie.Id">
+                        
+                        <button type="submit" class="btn btn-primary">Gönder</button>
+                    </form>
+                    }
+                    
+                    @foreach (CommentVM comment2 in comment)
+                    {
+                        @if (User.Identity.IsAuthenticated){
+                            <label class="form-label" asp-for="comment">@kullanici.kullaniciAdi</label>
+                        }
+                        
+                        <textarea readonly class="mb-1">@comment2.comment</textarea>
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

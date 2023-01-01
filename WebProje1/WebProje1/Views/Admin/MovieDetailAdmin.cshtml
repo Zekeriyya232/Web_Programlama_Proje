@@ -1,0 +1,79 @@
+﻿@using WebProje1.Models
+@model CommentVM
+<link href="~/css/detailpage.css" rel="stylesheet" />
+
+@{
+    ViewData["Title"] = "Film Detay Düzenle";
+    KullaniciVM kullanici = ViewBag.kullanici;
+    List<CommentVM> comment = ViewBag.comments;
+    MovieVM movie = ViewBag.movies;
+    CommentVM comment1 = new CommentVM();
+
+}
+
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <h3 class="card-title">@movie.FilmAdi</h3>
+            <div class="row">
+                <div class="col-lg-5 col-md-5 col-sm-6">
+                    <div class="white-box text-center"><img src="/FilmImg/@movie.filmImg" class="img-responsive"></div>
+                </div>
+                <div class="col-lg-7 col-md-7 col-sm-6">
+                    <h4 class="box-title mt-5">Film Açıklama</h4>
+                    <p>@movie.Aciklama</p>
+
+                    <h3 class="box-title mt-5">Key Highlights</h3>
+                    <p><b>Yönetmen : </b> @movie.Yonetmen  </p><br />
+                    <p>
+                        <b>Oyuncular :</b>
+                        @foreach (var item in movie.oyuncular)
+                        {
+                            <span>@item</span>
+                        }
+                    </p>
+                    <p><b>Film Süresi : </b>@movie.FilmSure</p>
+                    <p>
+                        <b>Kategori :</b>
+                        @if (movie.KategoriId == 1)
+                        {
+                            <span>Aksiyon</span>
+                        }
+                        else if (movie.KategoriId == 2)
+                        {
+                            <span>Drama</span>
+                        }
+                        else if (movie.KategoriId == 3)
+                        {
+                            <span>Bilim Kurgu</span>
+                        }
+                        else if (movie.KategoriId == 4)
+                        {
+                            <span>Komedi</span>
+                        }
+                    </p>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <h3 class="box-title mt-5">Yorumlar</h3>
+  
+
+                    @foreach (CommentVM comment2 in comment)
+                    {
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <label class="form-label" asp-for="comment">@kullanici.kullaniciAdi</label>
+                        }
+
+                        <textarea readonly id="yorum">@comment2.comment</textarea>
+                        <a asp-action="DeleteComment" asp-route-id="@comment2.Id"
+                       onclick="return confirm('Bu kullanıcıyı silmek istediğinize emin misiniz  ')"
+                       class="btn btn-danger btn-sm text-white text-end"><i class="fa fa-trash me-2"></i>Sil</a>
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

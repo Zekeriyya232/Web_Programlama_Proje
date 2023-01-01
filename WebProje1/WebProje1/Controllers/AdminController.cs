@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NETCore.Encrypt.Extensions;
+using System.Security.Claims;
 using WebProje1.Controllers;
 using WebProje1.Entity;
 using WebProje1.Models;
@@ -47,6 +48,8 @@ namespace WebProje1.Controllers
             return View(model);
         }
 
+        
+
 
         public IActionResult MoviesList()
         {
@@ -69,60 +72,114 @@ namespace WebProje1.Controllers
 
             return View(model2);
         }
-
-        
-        public IActionResult GenreList(string genreId)
+   
+        public IActionResult GenreList(int genreId)
         {
-            int intId = Convert.ToInt32(genreId);
+            
             List<MovieVM> movies;
-            movies =(from x in _databaseContex.Movie where intId==x.KategoriId 
+            movies =(from x in _databaseContex.Movie where genreId==x.KategoriId 
                      select new MovieVM(){Id=x.Id,FilmAdi=x.FilmAdi,Aciklama=x.Aciklama,KategoriId=x.KategoriId,FilmSure=x.FilmSure,Yonetmen=x.Yonetmen,filmImg=x.FilmImg}).ToList();
             return View("MoviesList",movies);
 
         }
 
-        public IActionResult DeleteMovies(string fileName)
+        public IActionResult DeleteMovies(int id)
         {
-            string temp = fileName;
+            
             movieApiControllerResponse PAR = new();
-            PAR.Delete(int.Parse(temp));
+            PAR.Delete(id);
 
-            return View("MovieList");
+            movieApiControllerResponse PAR2 = new();
+
+            List<MovieDB> movies = PAR2.GetAllMovies().Result;
+            List<MovieVM> model2 = new List<MovieVM>();
+            foreach (MovieDB item in movies)
+            {
+                model2.Add(new MovieVM
+                {
+                    Id = item.Id,
+                    FilmAdi = item.FilmAdi,
+                    Aciklama = item.Aciklama,
+                    KategoriId = item.KategoriId,
+                    FilmSure = item.FilmSure,
+                    Yonetmen = item.Yonetmen,
+                    filmImg = item.FilmImg
+                });
+            }
+
+            return RedirectToAction("MoviesList",model2);
         }
 
-        public IActionResult EditMovie(string fileName)
+        public IActionResult EditMovie(int Id)
         {
-            string temp = fileName;
-            MovieDB movieDB = _databaseContex.Movie.FirstOrDefault(x=>x.Id==int.Parse(temp));
-            return View(movieDB);
-        }
+            MovieDB movie = _databaseContex.Movie.Find(Id);
+            MovieVM movieVM = new MovieVM();
+            movieVM.Id = movie.Id;
+            movieVM.FilmAdi = movie.FilmAdi;
+            movieVM.Aciklama = movie.Aciklama;
+            movieVM.KategoriId = movie.KategoriId;
+            movieVM.FilmSure = movie.FilmSure;
+            movieVM.Yonetmen = movie.Yonetmen;
+            movieVM.filmImg = movie.FilmImg;
 
+            
+
+            return View(movieVM);
+        }
         [HttpPost]
-        public IActionResult EditMovie(MovieDB movieDB)
+        public IActionResult EditMovie(int id, MovieVM model)
         {
-            ModelState.Remove("Id");
-            ModelState.Remove("FilmAdi");
-            ModelState.Remove("KategoriId");
-            ModelState.Remove("FilmSure");
-            ModelState.Remove("Aciklama");
-            ModelState.Remove("Oyuncular");
-            ModelState.Remove("Yonetmen");
-            ModelState.Remove("FilmImg");
-
-            string movieId = (movieDB.Id).ToString();
             if (ModelState.IsValid)
             {
-                movieApiControllerResponse PAR = new();
-                PAR.Update(movieDB);
-                return View("MovieList");
+                MovieDB movie = _databaseContex.Movie.Find(id);
+                movie.FilmAdi = model.FilmAdi;
+                movie.Aciklama = model.Aciklama;
+                movie.FilmImg = model.filmImg;
+                movie.KategoriId = model.KategoriId;
+                movie.FilmSure = model.FilmSure;
+                movie.Yonetmen = model.Yonetmen;
+                movie.Oyuncular = model.oyuncular;
+
+                _databaseContex.SaveChanges();
+
+
+                List<MovieDB> filmlist = _databaseContex.Movie.ToList();
+                List<MovieVM> model2 = new List<MovieVM>();
+
+                // _databaseContex.Kullanici.Select(x=>new KullaniciVM { 
+                //   Id=x.Id,kullaniciAdi=x.kullaniciAdi,KullaniciSoyadi=x.KullaniciSoyadi,kullaniciEmail=x.kullaniciEmail})
+
+                foreach (MovieDB item in filmlist)
+                {
+                    model2.Add(new MovieVM
+                    {
+                        Id = item.Id,
+                        FilmAdi = item.FilmAdi,
+                        Aciklama = item.Aciklama,
+                        KategoriId = item.KategoriId,
+                        FilmSure = item.FilmSure,
+                        Yonetmen = item.Yonetmen,
+                        filmImg = item.FilmImg
+                    });
+                }
+                //admin sayfasında kullanıcıları listelemek için kullan 
+
+
+                return View("MoviesList", model2);
+
             }
-            return View(movieDB);
-
-
+            return View(model);
         }
+
+        public IActionResult CreateMovie()
+        {
+            return View();
+        }
+
         [HttpPost]
         public IActionResult CreateMovie(MovieVM model)
         {
+
             if (ModelState.IsValid)
             {
                 MovieDB movie = new MovieDB
@@ -132,9 +189,12 @@ namespace WebProje1.Controllers
                     Aciklama = model.Aciklama,
                     FilmSure = model.FilmSure,
                     KategoriId = model.KategoriId,
-                    FilmImg = model.filmImg
+                    FilmImg = model.filmImg,
+                    Oyuncular=model.oyuncular
+                    
 
                 };
+
                 _databaseContex.Add(movie);
                 _databaseContex.SaveChanges();
                 List<MovieDB> filmlist = _databaseContex.Movie.ToList();
@@ -169,10 +229,60 @@ namespace WebProje1.Controllers
             return View();
         }
 
-        public IActionResult SeriesDesign()
+        public IActionResult MovieDetailAdmin(int id)
         {
-            return View();
+            MovieDB movie = _databaseContex.Movie.FirstOrDefault(x => x.Id == id);
+            if (movie != null)
+            {
+                List<CommentVM> comments;
+                MovieVM movie1 = new MovieVM();
+                movie1.Id = movie.Id;
+                movie1.KategoriId = movie.KategoriId;
+                movie1.FilmAdi = movie.FilmAdi;
+                movie1.Aciklama = movie.Aciklama;
+                movie1.FilmSure = movie.FilmSure;
+                movie1.Yonetmen = movie.Yonetmen;
+                movie1.filmImg = movie.FilmImg;
+                movie1.oyuncular = movie.Oyuncular;
+
+                comments = (from y in _databaseContex.comments where id == y.filmId select new CommentVM() { Id = y.Id, comment = y.comment, filmId = y.filmId, kullaniciId = y.kullaniciId }).ToList();
+
+                string id2 = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                int intId = Convert.ToInt32(id2);
+
+
+                if (User.Identity.IsAuthenticated)
+                {
+                    KullaniciDB kullaniciDB = _databaseContex.Kullanici.FirstOrDefault(z => z.Id == intId);
+                    KullaniciVM kullanici = new KullaniciVM();
+
+                    kullanici.Id = kullaniciDB.Id;
+                    kullanici.kullaniciAdi = kullaniciDB.kullaniciAdi;
+                    kullanici.KullaniciSoyadi = kullaniciDB.KullaniciSoyadi;
+                    kullanici.kullaniciEmail = kullaniciDB.kullaniciEmail;
+                    kullanici.KayitTarih = kullaniciDB.KayitTarih;
+                    //kullanici. = kullaniciDB.ProfilImg;
+                    kullanici.Phone = kullaniciDB.Phone;
+
+                    ViewBag.kullanici = kullanici;
+                }
+
+
+                ViewBag.comments = comments;
+                ViewBag.movies = movie1;
+
+
+
+                return View(new CommentVM());
+
+            }
+            else
+            {
+                return RedirectToAction("Index");
+
+            }
         }
+        
         [HttpGet]
         public IActionResult CreateKullanici()
         {
@@ -324,6 +434,21 @@ namespace WebProje1.Controllers
 
             }
             return RedirectToAction(nameof(Index));
+        }
+
+      
+
+        public IActionResult DeleteComment(int id)
+        {
+            CommentDB comment = _databaseContex.comments.Find(id);
+            if (comment != null)
+            {
+                _databaseContex.comments.Remove(comment);
+                _databaseContex.SaveChanges();
+
+            }
+
+            return RedirectToAction("MovieDetailAdmin");
         }
     }
 }

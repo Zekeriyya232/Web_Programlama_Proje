@@ -15,13 +15,13 @@
 
 		<div class="dropdown text-end">
 			<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-				Dropdown button
+				Kategoriler
 			</button>
 			<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-				<a class="dropdown-item" asp-action="GenreList" asp-route-id="1" >Action</a>
-				<a class="dropdown-item" asp-action="GenreList" asp-route-id="1">Another action</a>
-				<a class="dropdown-item" asp-action="GenreList" asp-route-id="1">Another action</a>
-				<a class="dropdown-item" asp-action="GenreList" asp-route-id="1">Something else here</a>
+				<a class="dropdown-item" asp-action="GenreList" asp-route-genreId="1">Aksiyon</a>
+				<a class="dropdown-item" asp-action="GenreList" asp-route-genreId="2">Drama</a>
+				<a class="dropdown-item" asp-action="GenreList" asp-route-genreId="3">Bilim Kurgu</a>
+				<a class="dropdown-item" asp-action="GenreList" asp-route-genreId="4">Komedi</a>
 			</div>
 		</div>
 
@@ -33,13 +33,13 @@
 	<div class="card mb-3">
 		<div class="row">
 			<div class="col-md-3">
-				<img src="~/FilmImg/@movie.FilmAdi" alt="@movie.FilmAdi" class="img-fluid" />
+				<img src="/FilmImg/@movie.filmImg" alt="@movie.FilmAdi" class="img-fluid movieImg" />
 			</div>
 			<div class="col-md-9">
 				<div class="card-body">
 					<h5 class="card-title">@movie.FilmAdi</h5>
 					<div>
-						<a class="btn btn-primary" asp-controller="Admin" asp-action="MovieDetails" asp-route-id="@movie.Id">Detaylar</a>
+						<a class="btn btn-primary" asp-controller="Admin" asp-action="MovieDetailAdmin" asp-route-id="@movie.Id">Detaylar</a>
 						<a asp-action="EditMovie" asp-route-id="@movie.Id" class="btn btn-info btn-sm text-white"><i class="fa fa-edit me-2"></i>Düzenle</a>
 						<a asp-action="DeleteMovies" asp-route-id="@movie.Id"
 					   onclick="return confirm('Bu filmi silmek istediğinize emin misiniz ? Film:@movie.FilmAdi ')"

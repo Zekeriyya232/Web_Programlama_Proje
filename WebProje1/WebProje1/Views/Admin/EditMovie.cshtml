@@ -1,0 +1,90 @@
+﻿@model MovieVM
+@{
+	ViewData["Title"] = "Film Düzenle";
+}
+
+<div class="row">
+	<div class="col-4 offset-4">
+		<h1 class="display-4 border-bottom text-center pb-2">@ViewData["Title"]</h1>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-4 offset-4">
+
+
+		<div class="d-flex flex-column align-items-center text-center p-2 py-2">
+			<img src="/FilmImg/@Model.filmImg" class="img-thumbnail mt-3 movieImg" >
+		</div>
+
+
+		<form asp-action="EditMovie">
+			<div asp-validation-summary="ModelOnly" class="text-warning small"></div>
+
+			<div class="form-outline  mb-2">
+				<span asp-validation-for="@Model.FilmAdi" class="text-warning small"></span>
+				<input asp-for="@Model.FilmAdi" type="text" class="form-control"
+					   placeholder="" />
+				<label class="form-label" asp-for="@Model.FilmAdi">Film Adı</label>
+
+			</div>
+
+
+			<div class="form-outline mb-2">
+				<span asp-validation-for="@Model.Aciklama" class="text-warning small"></span>
+				<input asp-for="@Model.Aciklama" type="text" class="form-control"
+					   placeholder="" />
+				<label class="form-label" asp-for="@Model.Aciklama">Film Açıklama</label>
+
+			</div>
+
+			<div class="form-outline mb-2">
+				<span asp-validation-for="@Model.Yonetmen" class="text-warning small"></span>
+				<input asp-for="@Model.Yonetmen" type="text" class="form-control"
+					   placeholder="" />
+				<label class="form-label" asp-for="@Model.Yonetmen">Film Yönetmeni </label>
+
+			</div>
+
+
+			<div class="form-outline mb-2">
+				<span asp-validation-for="@Model.oyuncular" class="text-warning small"></span>
+				<input asp-for="@Model.oyuncular" type="text" class="form-control"
+					   placeholder="" />
+				<label class="form-label" asp-for="@Model.oyuncular">Oyuncular</label>
+
+			</div>
+
+			<div class="form-outline mb-2">
+				<span asp-validation-for="@Model.FilmSure" class="text-warning small"></span>
+				<input asp-for="@Model.FilmSure" type="text" class="form-control"
+					   placeholder="" />
+				<label class="form-label" asp-for="@Model.FilmSure">Film Süresi</label>
+
+			</div>
+
+			<div class="form-outline mb-2">
+				<span asp-validation-for="@Model.KategoriId" class="text-warning small"></span>
+				<input asp-for="@Model.KategoriId" type="text" class="form-control"
+					   placeholder="" />
+				<label class="form-label" asp-for="@Model.KategoriId">Kategori ID</label>
+
+			</div>
+
+			<div class="form-outline  mb-2">
+				<span asp-validation-for="@Model.filmImg" class="text-warning small"></span>
+				<input asp-for="@Model.filmImg" type="text" class="form-control"
+					   placeholder="" />
+				<label class="form-label" asp-for="@Model.filmImg">Film Resim Link</label>
+
+			</div>
+
+			<div class="text-center pt-1 mb-5 pb-1">
+				<button class="btn btn-primary col-12 gradient-custom-2 mb-3" type="submit">
+					<i class="fa-solid fa-save me-2"></i> Save
+				</button>
+				<br />
+			</div>
+		</form>
+	</div>
+</div>

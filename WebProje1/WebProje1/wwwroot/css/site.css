@@ -8,6 +8,10 @@ html {
     }
 }
 
+nav {
+    border-bottom-color:
+}
+
 html {
     position: relative;
     min-height: 100%;
@@ -22,7 +26,6 @@ body {
 }
 
 .loginIcon {
-   
 }
 
 .jumbotronCard {
@@ -40,8 +43,8 @@ body {
 }
 
 #imgLabel {
-    border:5px solid gray;
-    border-radius:10px;
+    border: 5px solid gray;
+    border-radius: 10px;
     cursor: pointer;
     /* Style as you please, it will become the visible UI component. */
 }
@@ -51,6 +54,11 @@ body {
     position: absolute;
     z-index: -1;
 }
+
+.movieImg{
+    height:30rem;
+}
+
 
 
 /*
@@ -90,8 +98,8 @@ body {
 
 
 
-    @media screen and (max-width: 600px) {
-        .topnav-centered a {
+@media screen and (max-width: 600px) {
+    .topnav-centered a {
         position: relative;
         top: 0;
         left: 0;

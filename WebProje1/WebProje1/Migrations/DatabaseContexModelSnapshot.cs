@@ -22,6 +22,29 @@ namespace WebProje1.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("WebProje1.Entity.CommentDB", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("comment")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("filmId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("kullaniciId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Comment");
+                });
+
             modelBuilder.Entity("WebProje1.Entity.KullaniciDB", b =>
                 {
                     b.Property<int>("Id")
